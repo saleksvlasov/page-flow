@@ -1,0 +1,29 @@
+{
+  "name": "pageable",
+  "version": "1.0.0",
+  "description": "web component pageable ",
+  "type": "module",
+  "private": true,
+  "port": 3000,
+  "devDependencies": {
+    "@types/web": "^0.0.177",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^12.0.2",
+    "css-loader": "^7.1.2",
+    "express": "^4.21.1",
+    "html-webpack-plugin": "^5.6.3",
+    "mini-css-extract-plugin": "^2.9.2",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-middleware": "^7.4.2",
+    "webpack-dev-server": "^5.1.0",
+    "ws": "^8.18.0"
+  },
+  "scripts": {
+    "start": "webpack-dev-server",
+    "build": "rimraf dist && webpack"
+  },
+  "author": "Vlasov",
+  "license": "ISC"
+}
