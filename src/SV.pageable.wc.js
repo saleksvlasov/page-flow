@@ -70,6 +70,7 @@ export class SVPageableWc extends HTMLElement {
     const sheet = new CSSStyleSheet()
     sheet.replaceSync(`
         .wrapper {
+          width: max-content;
           display: flex;
           justify-content: space-between;
           align-items: center;
