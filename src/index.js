@@ -1,1 +1,1 @@
-export { SVPageableWc } from './SV.pageable.wc.js'
+export { SVSizerWc } from './SV.sizer.wc.js'
