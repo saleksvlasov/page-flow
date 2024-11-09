@@ -1,3 +1,5 @@
+import { doStyles } from './utils/index.js'
+
 export class SVSizerWc extends HTMLElement {
   /** @type { string[] } */
   static observedAttributes = ['count', 'page', 'rowsPerPage', 'rowsPerPageLabel']
@@ -14,9 +16,11 @@ export class SVSizerWc extends HTMLElement {
   /** @type {  ShadowRoot } */
   shadowRoot
 
+  /** @type { string } */
+  selectedSize
+
   constructor() {
     super()
-
     this.#internals = this.attachInternals()
   }
 
@@ -25,13 +29,44 @@ export class SVSizerWc extends HTMLElement {
       this.shadowRoot = this.attachShadow({ mode: 'open', delegatesFocus: true })
     }
 
-    const sheet = this.#appendStyles()
+    const sheet = doStyles()
     this.shadowRoot.adoptedStyleSheets = [sheet]
 
     this.#count = this.getAttribute('count')
+    this.selectedSize = this.#count
     this.#rowsPerPage = this.getAttribute('rowsPerPage').split(',')
 
     this.#renderSelect(this.#rowsPerPage)
+  }
+
+  /**
+   * @function attributeChangedCallback
+   * @description The attributeChangedCallback() callback is then called whenever an attribute whose name is listed in the element's observedAttributes property is added, modified, removed, or replaced.
+   *
+   * @param {string} name
+   * @param {string | null} oldValue
+   * @param {string | null} newValue
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#responding_to_attribute_changes
+   */
+  attributeChangedCallback(name, oldValue, newValue) {
+    console.log('attributeChangedCallback:', name, oldValue, newValue)
+  }
+
+  get list() {
+    return this.shadowRoot.getElementById('sizer')
+  }
+
+  get listItems() {
+    return Array.from(this.list.children)
+  }
+
+  /**
+   * @function #onSizeChange
+   * @param { HTMLElementEventMap[string] } event
+   */
+  #onSizeChange(event) {
+    this.selectedSize = event.target.value
   }
 
   /**
@@ -54,7 +89,6 @@ export class SVSizerWc extends HTMLElement {
     $selectElement.className = 'select-sizer'
     $selectElement.name = 'select-sizer'
     $selectElement.id = 'sizer'
-    $selectElement.value = this.#count
 
     rowsPerPage.map(item => {
       const $optionElement = document.createElement('option')
@@ -70,75 +104,6 @@ export class SVSizerWc extends HTMLElement {
     $wrapperElement.appendChild($selectElement)
 
     this.shadowRoot.appendChild($wrapperElement)
-  }
-
-  /**
-   * @function #appendStyles
-   *
-   * @return CSSStyleSheet
-   */
-  #appendStyles() {
-    const sheet = new CSSStyleSheet()
-    sheet.replaceSync(`
-        :host {
-          display: flex;
-          align-items: center;
-          flex-wrap: nowrap;
-        }
-        
-        :host * {
-          font-size: inherit;
-          line-height: inherit;
-        }
-    
-        .wrapper {
-          width: max-content;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 8px 16px;
-          border: 1px solid #c4c4c4c4;
-          -webkit-border-radius: 8px;
-          -moz-border-radius: 8px;
-          border-radius: 8px;
-          color: gray;
-        }
-    
-        .horizontal-divider {
-          border-left: 1px solid #c4c4c4c4;
-          margin: 0 16px;
-          height: 1rem;
-        }
-        
-        .select-sizer {
-          border: none;
-          color: gray;
-        }
-    `)
-
-    return sheet
-  }
-
-  /**
-   * @function attributeChangedCallback
-   * @description The attributeChangedCallback() callback is then called whenever an attribute whose name is listed in the element's observedAttributes property is added, modified, removed, or replaced.
-   *
-   * @param {string} name
-   * @param {string | null} oldValue
-   * @param {string | null} newValue
-   *
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_custom_elements#responding_to_attribute_changes
-   */
-  attributeChangedCallback(name, oldValue, newValue) {
-    console.log('attributeChangedCallback:', name, oldValue, newValue)
-  }
-
-  /**
-   * @function #onSizeChange
-   * @param { HTMLElementEventMap[string] } event
-   */
-  #onSizeChange(event) {
-    console.log(event.target.value)
   }
 }
 
