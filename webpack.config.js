@@ -5,24 +5,46 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import CopyPlugin from 'copy-webpack-plugin'
 
-const packageJson = readFileSync(path.resolve(process.cwd(), 'package.json')).toString()
+const packageJson = readFileSync('./package.json').toString()
 const { version, name } = JSON.parse(packageJson)
 
+// eslint-disable-next-line no-restricted-syntax
 export default {
   mode: 'development',
-  entry: path.resolve(process.cwd(), 'src', 'index.js'),
-  devtool: 'inline-source-map',
+  entry: path.resolve(path.resolve(), 'src', 'index'),
+  devtool: false,
   output: {
     filename: '[name].[contenthash].bundle.js',
-    path: path.resolve(process.cwd(), 'build'),
+    path: path.resolve('build'),
     clean: true,
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.js', '.jsx', '.tsx', '.json', '.css']
   },
   module: {
     rules: [
+      {
+        test: /\.jsx$/,
+        loader: 'swc-loader',
+        options: {
+          jsc: {
+            parser: {
+              syntax: 'typescript',
+              jsx: true,
+              tsx: true
+            },
+            target: 'es2022',
+            loose: false,
+            transform: {
+              react: {
+                runtime: 'automatic'
+              }
+            }
+          }
+        },
+        exclude: /node_modules/
+      },
       {
         test: /\.css$/i,
         type: 'asset/resource',
@@ -43,14 +65,14 @@ export default {
       filename: 'style.[contenthash].css'
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(process.cwd(), 'public', 'index.html')
+      template: path.resolve('public', 'index.html')
     }),
     new CopyPlugin({
       patterns: [
-        { from: path.resolve(process.cwd(), 'public', 'style.css'), to: '.' },
+        { from: path.resolve('public', 'style.css'), to: '.' },
         {
-          from: path.resolve(process.cwd(), 'package.json'),
-          to: path.resolve(process.cwd(), 'build'),
+          from: path.resolve('package.json'),
+          to: path.resolve('build'),
           transform: {
             transformer: () => JSON.stringify({ version, name })
           }
@@ -59,7 +81,13 @@ export default {
     })
   ],
   optimization: {
-    runtimeChunk: 'single'
+    minimize: true,
+    chunkIds: 'named',
+    moduleIds: 'named',
+    mangleExports: false
+  },
+  watchOptions: {
+    ignored: /node_modules/
   },
   devServer: {
     hot: true,

@@ -1,2 +1,3 @@
-export { SVSizerWc } from './SV.sizer.wc.js'
-export * from './utils/index.js'
+import '../public/style.css'
+
+import('./bootstrap.jsx')
