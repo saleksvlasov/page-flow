@@ -1,7 +1,7 @@
 import { doStyles } from '../utils'
 
 export class HTMLSizerElement extends HTMLElement {
-  static observedAttributes: string[] = ['value']
+  static formAssociated = true
   
   #rowsPerPage: string[] = []
   
@@ -19,15 +19,13 @@ export class HTMLSizerElement extends HTMLElement {
     }
     
     this.shadowRoot.innerHTML = `
+      ${doStyles}
       <div class="wrapper">
         <label for="sizer">Показывать по</label>
         <div class="horizontal-divider"></div>
         <select class="select-sizer" id="sizer" name="select-sizer" autocomplete="off"></select>
       </div>
     `
-    
-    const sheet = doStyles()
-    this.shadowRoot.adoptedStyleSheets = [sheet]
     
     this.#rowsPerPage = (this.getAttribute('rowsPerPage') as string)
       .split(',')
@@ -38,24 +36,8 @@ export class HTMLSizerElement extends HTMLElement {
     this.list.addEventListener('input', this.#onSelectListItem.bind(this))
   }
   
-  attributeChangedCallback(name: string, oldName: string, newName: string) {
-    console.log(name, oldName, newName)
-  }
-  
   #onSelectListItem(event: Event) {
-    // event.stopPropagation()
     this.value = (event.target as HTMLSelectElement).value
-    // console.log('#onSelectListItem:', event)
-    
-    // this.listItem.map((element: HTMLOptionElement) => {
-    //   if (element.value === this.value) {
-    //     element.setAttribute('id', this.value)
-    //     element.setAttribute('selected', '')
-    //   }
-    //   return element
-    // })
-    
-    // console.log('this.list.value:', this.list.value)
     
     this.dispatchEvent(new Event('change'))
   }
@@ -79,6 +61,4 @@ export class HTMLSizerElement extends HTMLElement {
   }
 }
 
-if (!customElements.get('sv-sizer')) {
-  customElements.define('sv-sizer', HTMLSizerElement)
-}
+customElements.define('sv-sizer', HTMLSizerElement)

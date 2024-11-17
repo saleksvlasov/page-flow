@@ -1,12 +1,6 @@
-/**
- * @function doStyles
- *
- * @return CSSStyleSheet
- */
-export function doStyles() {
-  const sheet = new CSSStyleSheet()
-  sheet.replaceSync(`
-        :host {
+export const doStyles = `
+      <style>
+      :host {
           display: flex;
           align-items: center;
           flex-wrap: nowrap;
@@ -40,7 +34,4 @@ export function doStyles() {
           border: none;
           color: gray;
         }
-    `)
-
-  return sheet
-}
+</style>`

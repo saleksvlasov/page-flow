@@ -1,4 +1,3 @@
-import React from 'react'
 import { observer } from 'mobx-react-lite'
 
 import './sizer/SV.sizer.wc'
@@ -11,9 +10,9 @@ export const App = observer(function app() {
       <select
         style={{ marginTop: '32px' }}
         name="select-test"
-        id="select-test-is"
+        id={crypto.randomUUID()}
         onChange={e => {
-          console.log(e)
+          console.log(e.target)
         }}
       >
         {[10, 25, 50, 100].map(size => (

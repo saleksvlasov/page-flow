@@ -20,7 +20,12 @@ export default {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.ts', '.js', '.jsx', '.tsx', '.json', '.css']
+    extensions: ['.ts', '.js', '.jsx', '.tsx', '.json', '.css'],
+    alias: {
+      'react': 'preact/compat',
+      'react-dom': 'preact/compat',
+      'react/jsx-runtime': 'preact/jsx-runtime'
+    }
   },
   module: {
     rules: [
