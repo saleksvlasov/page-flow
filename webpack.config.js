@@ -25,14 +25,15 @@ export default {
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.[jt]sx?$/,
         loader: 'swc-loader',
         options: {
           jsc: {
             parser: {
               syntax: 'typescript',
               jsx: true,
-              tsx: true
+              tsx: true,
+              decorators: true
             },
             target: 'es2022',
             loose: false,
