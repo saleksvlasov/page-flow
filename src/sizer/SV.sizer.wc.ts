@@ -3,7 +3,7 @@ import { doStyles } from '../utils'
 export class HTMLSizerElement extends HTMLElement {
   static formAssociated = true
   
-  #rowsPerPage: string[] = []
+  #rowsPerPage: number[] = []
   
   shadowRoot: ShadowRoot
   
@@ -29,7 +29,7 @@ export class HTMLSizerElement extends HTMLElement {
     
     this.#rowsPerPage = (this.getAttribute('rowsPerPage') as string)
       .split(',')
-      .map(item => item.trim())
+      .map(item => parseInt(item.trim()))
     
     this.#renderSelectOptions(this.#rowsPerPage)
     
@@ -42,11 +42,11 @@ export class HTMLSizerElement extends HTMLElement {
     this.dispatchEvent(new Event('change'))
   }
   
-  #renderSelectOptions(rowsPerPage: string[]) {
+  #renderSelectOptions(rowsPerPage: number[]) {
     rowsPerPage.map(item => {
       const $optionElement = document.createElement('option')
-      $optionElement.textContent = item
-      $optionElement.value = item
+      $optionElement.textContent = String(item)
+      $optionElement.value = String(item)
       
       this.list.appendChild($optionElement)
     })

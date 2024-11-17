@@ -12,7 +12,7 @@ export const CustomSelectView = observer(function customSelectView() {
   
   return (
     <sv-sizer
-      rowsPerPage="10, 25, 50, 100"
+      rowsPerPage={[10, 25, 50, 100]}
       value={pageable.size}
       onChange={onChange}
     />

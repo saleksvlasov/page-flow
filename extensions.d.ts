@@ -8,7 +8,7 @@ declare global {
         HTMLSizerElement
       > & {
         value?: number
-        rowsPerPage?: string
+        rowsPerPage?: number[] | string
         required?: boolean
       }
     }
@@ -18,7 +18,7 @@ declare global {
 declare global {
   interface HTMLSizerElement extends HTMLElement {
     value: number
-    rowsPerPage: string
+    rowsPerPage: number[] | string
     required?: boolean
     
     addEventListener<K extends keyof HTMLElementEventMap>(
