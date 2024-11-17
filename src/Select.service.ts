@@ -7,11 +7,6 @@ export class SelectService {
   pageable = new Pageable()
   
   constructor() {
-    // document.addEventListener('own-change', event => {
-    //   console.log('SelectService:', event.detail)
-    //   runInAction(() => (this.value = event.detail))
-    // })
-    
     makeObservable(
       this,
       {
@@ -25,6 +20,16 @@ export class SelectService {
       () => this.pageable.size,
       () => {
         console.log('(from SelectService) CHANGE SIZE:', this.pageable.size)
+        // fetch('https://api.github.com/repositories/1300192/issues?page=515&size=20')
+        //   .then((response) => response.json())
+        //   .then((json) => console.log(json))
+      }
+    )
+    
+    reaction(
+      () => this.pageable.page,
+      () => {
+        console.log('(from SelectService) CHANGE PAGE:', this.pageable.page)
         // fetch('https://api.github.com/repositories/1300192/issues?page=515&size=20')
         //   .then((response) => response.json())
         //   .then((json) => console.log(json))

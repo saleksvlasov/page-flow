@@ -1,4 +1,4 @@
-import { doStyles } from '../utils'
+import { doStyles } from './do.styles'
 
 export class HTMLSizerElement extends HTMLElement {
   static formAssociated = true

@@ -7,9 +7,18 @@ declare global {
         React.HTMLAttributes<HTMLSizerElement>,
         HTMLSizerElement
       > & {
-        value?: number
-        rowsPerPage?: number[] | string
+        value: number
+        rowsPerPage: number[] | string
         required?: boolean
+      }
+      
+      'sv-clicker': React.DetailedHTMLProps<
+        React.HTMLAttributes<HTMLClickerElement>,
+        HTMLClickerElement
+      > & {
+        page?: number
+        totalPage: number
+        shape?: 'circular' | 'rounded'
       }
     }
   }
@@ -42,6 +51,46 @@ declare global {
       type: K,
       listener: (
         this: HTMLSizerElement & {
+          value: string
+        },
+        ev: HTMLElementEventMap[K]
+      ) => any,
+      options?: boolean | EventListenerOptions
+    ): void
+    
+    removeEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | EventListenerOptions
+    ): void
+  }
+  
+  interface HTMLClickerElement extends HTMLElement {
+    page?: number
+    totalPage: number
+    shape?: 'circular' | 'rounded'
+    
+    addEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLClickerElement & {
+          value: string
+        },
+        ev: HTMLElementEventMap[K]
+      ) => any,
+      options?: boolean | AddEventListenerOptions
+    ): void
+    
+    addEventListener(
+      type: string,
+      listener: EventListenerOrEventListenerObject,
+      options?: boolean | AddEventListenerOptions
+    ): void
+    
+    removeEventListener<K extends keyof HTMLElementEventMap>(
+      type: K,
+      listener: (
+        this: HTMLClickerElement & {
           value: string
         },
         ev: HTMLElementEventMap[K]

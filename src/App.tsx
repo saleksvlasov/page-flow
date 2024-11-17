@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite'
 
-import './sizer/SV.sizer.wc'
+import './pageable/sizer/SV.sizer.wc'
+import './pageable/clicker/SV.clicker.wc'
 import { CustomSelectView } from './Custom.select.view'
 
 export const App = observer(function app() {
