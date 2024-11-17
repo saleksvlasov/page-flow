@@ -20,9 +20,6 @@ export class SelectService {
       () => this.pageable.size,
       () => {
         console.log('(from SelectService) CHANGE SIZE:', this.pageable.size)
-        // fetch('https://api.github.com/repositories/1300192/issues?page=515&size=20')
-        //   .then((response) => response.json())
-        //   .then((json) => console.log(json))
       }
     )
     
@@ -30,9 +27,9 @@ export class SelectService {
       () => this.pageable.page,
       () => {
         console.log('(from SelectService) CHANGE PAGE:', this.pageable.page)
-        // fetch('https://api.github.com/repositories/1300192/issues?page=515&size=20')
-        //   .then((response) => response.json())
-        //   .then((json) => console.log(json))
+        fetch(`https://api.github.com/repositories/1300192/issues?page=${this.pageable.page}`)
+          .then((response) => response.json())
+          .then((json) => console.log(json))
       }
     )
   }

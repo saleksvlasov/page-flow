@@ -28,7 +28,7 @@ export const CustomSelectView = observer(function customSelectView() {
         value={pageable.size}
         onChange={onSizeChange}
       />
-      <sv-clicker totalPage={30} onChange={onClickerChange} />
+      <sv-clicker totalPage={30} page={pageable.page} onChange={onClickerChange} />
     </div>
   )
 })
