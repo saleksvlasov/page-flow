@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "DOM",
+      "ES2022",
+      "DOM.Iterable"
+    ],
+    "module": "es2022",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "outDir": "./build/",
+    "isolatedModules": false,
+    "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "emitDecoratorMetadata": false,
+    "experimentalDecorators": true,
+    "strictPropertyInitialization": false,
+    "resolveJsonModule": true,
+    "useDefineForClassFields": true,
+    "sourceMap": false,
+    "noEmit": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "extensions.d.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "extensions.d.ts"
+  ],
+  "exclude": [
+    "node_modules/**/*",
+    "*/public/**/*"
+  ]
+}
