@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite'
 import { selectService } from './Select.service'
 
 export const CustomSelectView = observer(function customSelectView() {
-  const { pageable } = selectService
+  const { pageable, total } = selectService
   
   const onSizeChange = (event: ChangeEvent<HTMLSizerElement>) => {
     const value = event.target.value
@@ -28,7 +28,11 @@ export const CustomSelectView = observer(function customSelectView() {
         value={pageable.size}
         onChange={onSizeChange}
       />
-      <sv-clicker totalPage={30} page={pageable.page} onChange={onClickerChange} />
+      <sv-clicker
+        totalPage={total}
+        page={pageable.page}
+        onChange={onClickerChange}
+      />
     </div>
   )
 })
